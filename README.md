@@ -24,6 +24,27 @@
 | `unclear` | Few or mixed signals | Check with the organisation yourself, via its own app or website |
 | `no_visible_indicators` | Nothing found — **this does not mean safe** | Best to open the organisation's app yourself |
 
+### The authority side: linking the public and the security authority | الربط بين الجمهور والجهة الأمنية
+
+The public app never files reports for people. The person still sends the report through **eCrime in the MOI UAE app**. What connects the public to the authority is a **staff dashboard** (`/admin`) built on **anonymous, aggregate** data:
+
+```
+Public (Ta'akkad app)                                    Security authority (/admin)
+  each check ──► anonymous counters only ──────────────►  indicators: results per day, top fraud
+                 (result, signal types, claimed org,       techniques, most-impersonated organisations,
+                  domain of non-official links)            recurring suspicious domains
+  warning banner on the check screen  ◄───── publish ───  public warnings (AR/EN)
+  verdict "high suspicion" + reason   ◄───── confirm ───  confirm a domain as fraudulent
+  report text ──► person files it in MOI app eCrime ────►  existing eCrime process (unchanged)
+```
+
+- **Early warning:** staff see a campaign forming (for example, many people checking courier-fee messages that lead to one domain) before reports pile up.
+- **Two-way:** a domain staff confirm makes every later message containing it `high_suspicion`, with the reason "confirmed by the security authority". Published warnings appear to every user. Shortener services and official domains can't be confirmed, so legitimate links are never blocked by mistake.
+- **What's stored per check:** date + hour, result, channel, UI language, signal codes, the claimed organisation/category, and the registered domain of non-official links. **Never stored:** message text (masked or not), numbers, IP address, device info, or anything linking two checks to one person. Tested in `backend/tests/test_dashboard.py`. Stats can be switched off with `TAAKKAD_STATS=0`.
+- **Access:** a bearer token (`TAAKKAD_ADMIN_TOKEN`; if unset, a random one is printed to the server console on each start). A real deployment would use the authority's own single sign-on and audit log.
+- **Demo data:** `backend/scripts/seed_demo_stats.py` replays the 60 synthetic messages over 14 days so the dashboard has something to show. Every such row is marked synthetic, and the dashboard says so on screen. These are **not** real reports or real volumes.
+- **Later, with an official partnership:** direct, consented submission to eCrime with a case number returned. Not built, because it needs an agreement and an API from the Ministry of Interior.
+
 ### Product rules that the code enforces
 1. The app **never says "safe"** — only the three states above (`backend/app/scoring.py`, tested in `test_verdicts.py`).
 2. **Masking before anything else** — cards (Luhn), Emirates ID `784-…`, UAE IBAN `AE..`, phone numbers, e-mails and delivered codes (`backend/app/masking.py`).
@@ -74,6 +95,7 @@ Browser (React + Vite)                         Server (Python + FastAPI)
 - A **local model** for higher privacy (no external API at all), evaluated against the rules + API setup.
 - **Reputation databases** and **sandboxed link analysis** run by an authority, not by the user's request path.
 - **Direct report submission** through an official partnership (today the app only prepares the report).
+- Dashboard hardening: the authority's single sign-on, roles (viewer / publisher), an audit log of confirmations and warnings, and minimum-count thresholds before showing rare categories.
 - A **verified official-domain list** maintained with the relevant authorities, with dates and sources.
 - A **held-out evaluation set** written by people who did not write the rules, and the **user study** below.
 - Better OCR on WhatsApp screenshots (cropping, chat-bubble detection) and Emirati-dialect voice input.
@@ -82,6 +104,7 @@ Browser (React + Vite)                         Server (Python + FastAPI)
 ### Privacy mechanism | آلية حماية الخصوصية
 - **Data minimisation:** only the message text. No name, ID, account or login.
 - **Mask first:** `analyse_message()` calls `mask()` before anything else; every later step (rules, LLM, report, opt-in storage) only sees masked text. Tested in `test_masking.py` and `test_api.py`.
+- **Anonymous statistics for the authority:** counts and signal types only, never text or identity (see "The authority side" above). Stated on the privacy page.
 - **No link fetching**, **no message text in logs** (uvicorn access log = method, path, status), `Cache-Control: no-store` on API responses, errors never echo request content.
 - **Images stay on device** (in-browser OCR). Voice uses the browser's speech API, which may process audio externally — stated on the privacy page.
 - **Optional, explicit storage:** only if the user ticks the box for that check, the **masked** text and the result are appended to `backend/storage/opt_in.jsonl` (git-ignored). Off by default.
@@ -121,9 +144,18 @@ cd backend
 python -m venv .venv
 # Windows: .venv\Scripts\activate    macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-pytest                                   # 45 tests
+pytest                                   # 55 tests
 uvicorn app.main:app --port 8000         # API on http://127.0.0.1:8000 (docs at /api/docs)
 ```
+
+### Authority dashboard (staff)
+```bash
+# optional: fill the dashboard with clearly-labelled synthetic demo data
+backend/.venv/Scripts/python backend/scripts/seed_demo_stats.py      # --clear removes demo rows only
+# optional: fix the token instead of a random one per run
+export TAAKKAD_ADMIN_TOKEN=choose-a-long-random-value                # PowerShell: $env:TAAKKAD_ADMIN_TOKEN="..."
+```
+Open `http://127.0.0.1:8000/admin` (or `http://localhost:5173/admin` in dev) and sign in with the token (printed in the server console if you didn't set one). Data lives in `backend/storage/taakkad.db` (SQLite, git-ignored).
 
 ### Frontend
 ```bash
@@ -148,9 +180,12 @@ Writes `eval/results.md` and `eval/results.json`.
 
 ### Repository layout
 ```
-backend/app/     masking, url_checks, text_signals, scoring, llm, report, analyzer, main (FastAPI)
-backend/tests/   45 pytest tests (masking, link checks, verdict rules, API/privacy)
-frontend/src/    React app: App.jsx, i18n.js (AR/EN), ocr.js, voice.js, styles.css
+backend/app/     masking, url_checks, text_signals, scoring, llm, report, analyzer,
+                 stats (anonymous aggregates, alerts, confirmed domains), main (FastAPI)
+backend/scripts/ seed_demo_stats.py (synthetic demo data for the dashboard)
+backend/tests/   55 pytest tests (masking, link checks, verdict rules, API/privacy, dashboard)
+frontend/src/    App.jsx (public app), Admin.jsx (staff dashboard at /admin),
+                 i18n.js / adminI18n.js (AR/EN), ocr.js, voice.js, styles.css
 data/            official_domains.json (UNVERIFIED real entries + fictional .test demo entities),
                  synthetic_messages.jsonl (60 synthetic messages)
 eval/            run_eval.py, results.md, results.json

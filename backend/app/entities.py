@@ -64,10 +64,36 @@ def _contains_word(haystack: str, needle: str) -> bool:
     return needle in haystack
 
 
+def _spans(haystack: str, needle: str) -> list[tuple[int, int]]:
+    if re.search(r"[a-z]", needle):
+        pat = r"(?<![a-z0-9])" + re.escape(needle) + r"(?![a-z0-9])"
+    else:
+        pat = re.escape(needle)
+    return [m.span() for m in re.finditer(pat, haystack)]
+
+
 def claimed_entities(text: str) -> list[Entity]:
-    """Entities whose name or alias appears in the message text (URLs excluded by caller)."""
+    """Entities whose name or alias appears in the message text (URLs excluded by caller).
+
+    A match that only occurs inside a longer match of another entity does not count:
+    "اتصالات" inside "نجم للاتصالات" is Najm Telecom, not Etisalat.
+    """
     norm = normalize_ar(text)
-    return [e for e in load_catalog().entities if any(_contains_word(norm, a) for a in e.aliases if a)]
+    found: list[tuple[Entity, tuple[int, int]]] = []
+    for e in load_catalog().entities:
+        for a in e.aliases:
+            if a:
+                found += [(e, sp) for sp in _spans(norm, a)]
+
+    def covered(e: Entity, sp: tuple[int, int]) -> bool:
+        return any(o is not e and os_[0] <= sp[0] and sp[1] <= os_[1] and (os_[1] - os_[0]) > (sp[1] - sp[0])
+                   for o, os_ in found)
+
+    out: list[Entity] = []
+    for e, sp in found:
+        if e not in out and not covered(e, sp):
+            out.append(e)
+    return out
 
 
 def claimed_categories(text: str) -> set[str]:

@@ -1,6 +1,6 @@
 # Evaluation results
 
-- Run: 2026-11-23 15:16 UTC
+- Run: 2026-11-23 15:43 UTC
 - Mode: **rules only**
 - Data: `data/synthetic_messages.jsonl` — 60 synthetic messages (30 scam, 14 legit, 8 code-delivery, 8 ambiguous; 12 ask for card/OTP)
 

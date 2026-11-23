@@ -67,6 +67,8 @@ def _parse(url: str) -> tuple[str, str]:
 
 
 def registered_domain(host: str) -> str:
+    if _is_ip(host):
+        return host
     labels = host.split(".")
     if len(labels) >= 3 and ".".join(labels[-2:]) in TWO_LEVEL_SUFFIXES:
         return ".".join(labels[-3:])
@@ -138,6 +140,11 @@ def check_url(url: str) -> LinkReport:
         report.official_for.append(official[host].id)
 
     add = report.findings.append
+    # Domains that staff confirmed as fraudulent on the authority dashboard (text match only).
+    from .stats import confirmed_domains
+    confirmed = confirmed_domains()
+    if not report.official_for and (reg in confirmed or host in confirmed):
+        add(LinkFinding("confirmed_by_authority", 3, url))
     if _is_ip(host):
         add(LinkFinding("ip_host", 2, url))
     if host.startswith("xn--") or ".xn--" in host or any(ord(c) > 127 for c in host):

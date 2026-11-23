@@ -19,6 +19,10 @@ NONE = "no_visible_indicators"
 
 # Plain-language reasons. {entity} is replaced by the claimed entity's name.
 REASONS: dict[str, dict[str, str]] = {
+    "confirmed_by_authority": {
+        "ar": "هذا الرابط أكّدته الجهة الأمنية كرابط احتيالي.",
+        "en": "The security authority has confirmed this link as fraudulent.",
+    },
     "asks_card": {
         "ar": "تطلب منك بيانات بطاقتك البنكية. الجهات الرسمية لا تطلبها عبر رسالة أو رابط.",
         "en": "It asks for your card details. Real organisations don't ask for them by message or link.",
@@ -140,7 +144,7 @@ NOT_GUARANTEED = {
     "en": "We can't confirm who actually sent the message, and we don't open links. This is an estimate, not a final verdict.",
 }
 
-HARD_HIGH = {"asks_card", "asks_otp", "asks_personal", "receive_money_link"}
+HARD_HIGH = {"asks_card", "asks_otp", "asks_personal", "receive_money_link", "confirmed_by_authority"}
 
 
 @dataclass

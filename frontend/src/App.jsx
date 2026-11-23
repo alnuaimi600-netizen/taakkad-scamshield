@@ -79,6 +79,29 @@ function Privacy({ t, firstTime, onAgree, onClose }) {
   );
 }
 
+function PublicAlerts({ lang }) {
+  const [alerts, setAlerts] = useState([]);
+  useEffect(() => {
+    let alive = true;
+    fetch(`/api/alerts?lang=${lang}`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((a) => alive && setAlerts(a.slice(0, 3)))
+      .catch(() => {});
+    return () => { alive = false; };
+  }, [lang]);
+  if (!alerts.length) return null;
+  return (
+    <section className="alerts" aria-label="alerts">
+      {alerts.map((a) => (
+        <div key={a.id} className="alert-public" role="note">
+          <strong>⚠ {a.title}</strong>
+          <p>{a.body}</p>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 function CheckForm({ t, lang, draft, setDraft, onResult }) {
   const [busy, setBusy] = useState(false);
   const [ocrBusy, setOcrBusy] = useState(false);
@@ -138,6 +161,7 @@ function CheckForm({ t, lang, draft, setDraft, onResult }) {
 
   return (
     <main className="card">
+      <PublicAlerts lang={lang} />
       <label className="lbl" htmlFor="msg">{t.messageLabel}</label>
       <textarea
         id="msg"

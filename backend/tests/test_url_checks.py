@@ -67,6 +67,12 @@ def test_claimed_entity_match():
     assert findings == []
 
 
+def test_alias_inside_longer_name_is_not_a_claim():
+    from app.entities import claimed_entities
+    assert [e.id for e in claimed_entities("نجم للاتصالات: تم تجديد باقتك")] == ["najm_telecom"]
+    assert [e.id for e in claimed_entities("اتصالات: فاتورتك متأخرة")] == ["etisalat"]
+
+
 def test_generic_claim_unknown_link():
     _, findings, _ = check_message_links("شحنتك معلقة", ["http://example-track.test/pay"])
     assert [f.code for f in findings] == ["link_unknown_for_claim"]

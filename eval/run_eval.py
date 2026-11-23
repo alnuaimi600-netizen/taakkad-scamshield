@@ -18,6 +18,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
+# Reproducible: ignore domains confirmed on a live dashboard; use an empty throwaway DB.
+import os, tempfile  # noqa: E401,E402
+os.environ["TAAKKAD_DB"] = os.path.join(tempfile.mkdtemp(prefix="taakkad-eval-"), "eval.db")
 
 from app.analyzer import analyse_message  # noqa: E402
 

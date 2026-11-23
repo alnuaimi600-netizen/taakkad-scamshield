@@ -11,15 +11,33 @@ import time
 from pathlib import Path
 from typing import Literal
 
-from fastapi import FastAPI, Request
+import logging
+import secrets
+
+from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import llm
+from . import llm, stats
 from .analyzer import analyse_message
 from .report import build_report
+
+log = logging.getLogger("taakkad")
+
+# Staff dashboard token. If not configured, a random one is generated per run and
+# printed once to the server console (local demo only). Production: replace with
+# the authority's own sign-in (SSO) - see README.
+ADMIN_TOKEN = os.environ.get("TAAKKAD_ADMIN_TOKEN") or secrets.token_urlsafe(18)
+if "TAAKKAD_ADMIN_TOKEN" not in os.environ:
+    print(f"[taakkad] dashboard token for this run: {ADMIN_TOKEN}", flush=True)
+
+
+def require_admin(authorization: str | None = Header(default=None)) -> None:
+    expected = f"Bearer {ADMIN_TOKEN}"
+    if not authorization or not secrets.compare_digest(authorization.encode(), expected.encode()):
+        raise HTTPException(status_code=401, detail="unauthorized")
 
 MAX_CHARS = 5000
 ROOT = Path(__file__).resolve().parents[2]
@@ -30,8 +48,8 @@ app = FastAPI(title="Ta'akkad API", version="0.1.0", docs_url="/api/docs", opena
 app.add_middleware(
     CORSMiddleware,
     allow_origins=os.environ.get("TAAKKAD_CORS", "http://localhost:5173").split(","),
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type"],
+    allow_methods=["GET", "POST", "DELETE"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 
@@ -69,7 +87,11 @@ def health():
 @app.post("/api/check")
 def check(body: CheckIn):
     result = analyse_message(body.text, lang=body.lang)
-    result.pop("_debug_score", None)
+    try:
+        stats.record_check(result, body.channel, body.lang)  # aggregate fields only, never text
+    except Exception as exc:  # stats must never break a check
+        log.warning("stats not recorded (%s)", type(exc).__name__)
+    result = {k: v for k, v in result.items() if not k.startswith("_")}
     if body.save_consent:
         OPT_IN_FILE.parent.mkdir(parents=True, exist_ok=True)
         with OPT_IN_FILE.open("a", encoding="utf-8") as f:
@@ -84,6 +106,71 @@ def report(body: ReportIn):
     # Re-mask defensively in case the client sent something unmasked.
     from .masking import mask
     return build_report(mask(body.masked_text).text, body.urls, body.channel, body.received_at, body.what_happened, body.lang)
+
+
+@app.get("/api/alerts")
+def public_alerts(lang: Literal["ar", "en"] = "ar"):
+    """Warnings published by the authority, shown to the public in the app."""
+    return [{"id": a["id"], "created_at": a["created_at"], "title": a[f"title_{lang}"], "body": a[f"body_{lang}"]}
+            for a in stats.list_alerts(active_only=True)]
+
+
+# ---- Authority dashboard (staff only) -------------------------------------
+
+class AlertIn(BaseModel):
+    title_ar: str = Field(min_length=2, max_length=120)
+    title_en: str = Field(min_length=2, max_length=120)
+    body_ar: str = Field(min_length=2, max_length=600)
+    body_en: str = Field(min_length=2, max_length=600)
+
+
+class DomainIn(BaseModel):
+    domain: str = Field(min_length=3, max_length=253, pattern=r"^[a-z0-9.-]+$")
+
+
+@app.get("/api/admin/stats", dependencies=[Depends(require_admin)])
+def admin_stats(days: int = 14):
+    return stats.summary(days)
+
+
+@app.get("/api/admin/alerts", dependencies=[Depends(require_admin)])
+def admin_alerts():
+    return stats.list_alerts(active_only=False)
+
+
+@app.post("/api/admin/alerts", dependencies=[Depends(require_admin)])
+def admin_add_alert(body: AlertIn):
+    return {"id": stats.add_alert(body.title_ar, body.title_en, body.body_ar, body.body_en)}
+
+
+@app.post("/api/admin/alerts/{alert_id}/active", dependencies=[Depends(require_admin)])
+def admin_alert_active(alert_id: int, active: bool):
+    stats.set_alert_active(alert_id, active)
+    return {"ok": True}
+
+
+@app.post("/api/admin/confirmed-domains", dependencies=[Depends(require_admin)])
+def admin_confirm(body: DomainIn):
+    from .url_checks import SHORTENERS
+    from .entities import load_catalog
+    if body.domain in SHORTENERS:
+        # Confirming bit.ly etc. would flag every shortened link, legitimate ones included.
+        raise HTTPException(status_code=400, detail="shortener_not_allowed")
+    if body.domain in load_catalog().official_domains():
+        raise HTTPException(status_code=400, detail="official_domain")
+    stats.confirm_domain(body.domain)
+    return {"ok": True}
+
+
+@app.delete("/api/admin/confirmed-domains/{domain}", dependencies=[Depends(require_admin)])
+def admin_unconfirm(domain: str):
+    stats.unconfirm_domain(domain)
+    return {"ok": True}
+
+
+@app.exception_handler(HTTPException)
+async def http_errors(request: Request, exc: HTTPException):
+    return JSONResponse(status_code=exc.status_code, content={"error": exc.detail})
 
 
 @app.exception_handler(Exception)

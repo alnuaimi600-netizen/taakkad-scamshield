@@ -4,6 +4,7 @@ from __future__ import annotations
 from dataclasses import asdict
 
 from . import llm
+from .entities import claimed_categories
 from .masking import mask
 from .scoring import decide
 from .text_signals import detect
@@ -27,7 +28,14 @@ def analyse_message(text: str, lang: str = "ar", use_llm: bool = True) -> dict:
         signals, link_reports, link_findings, claimed, lang=lang,
         extra_codes=set(llm_result["signals"]) if llm_result else None,
     )
+    claim_pairs = [(e.category, e.id) for e in claimed]
+    claim_pairs += [(c, None) for c in sorted(claimed_categories(text_only) - {e.category for e in claimed})]
     return {
+        # internal fields for anonymous stats; main.py strips every "_" key from responses
+        "_all_codes": sorted({s.code for s in signals if s.weight}
+                             | {f.code for r in link_reports for f in r.findings}
+                             | {f.code for f in link_findings}),
+        "_claims": claim_pairs,
         "status": verdict.status,
         "reasons": [{"code": r.code, "text": r.text} for r in verdict.reasons],
         "highlights": verdict.highlights,
