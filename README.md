@@ -105,6 +105,10 @@ Browser (React + Vite)                         Server (Python + FastAPI)
 
 All code in this repository is original work by the team.
 
+**Organisers' logos and colours.** `frontend/public/partners/` holds the Abu Dhabi Police and 42 Abu Dhabi logos. They are shown only as hackathon credit (start screen and footer), next to the line "This is not an official Abu Dhabi Police app". The logos belong to their owners. The current files were cropped from the event material; we'll replace them with official, clearer copies from the organisers. The UI palette takes its cues from the logos: charcoal from 42 for the header and main buttons, police red `#B40C24` used **only** for the high-suspicion state and the header stripe (so red always means "warning"), and the falcon's bronze for focus, highlights and links.
+
+**Development tooling (not part of the app).** We used two Apache-2.0 Claude Code skills from [anthropics/skills](https://github.com/anthropics/skills) while building: `frontend-design` (visual design guidance) and `webapp-testing` (Playwright testing of the local app). They are installed locally under `.claude/skills/` and are not shipped with the product.
+
 ---
 
 ## 3. Build & Run | البناء والتشغيل

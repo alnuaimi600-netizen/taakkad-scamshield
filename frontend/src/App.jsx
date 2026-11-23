@@ -27,15 +27,29 @@ function Header({ t, title, sub, onPrivacy, onLang }) {
   );
 }
 
+function Partners({ t, large = false }) {
+  return (
+    <div className={large ? "partners large" : "partners"}>
+      <div className="logos">
+        <img src="/partners/adpolice.png" alt={t.adPoliceAlt} />
+        <img className="wide" src="/partners/42-abudhabi.png" alt={t.fortyTwoAlt} />
+      </div>
+      <p className="muted" dir={t.dir}>{t.partners}</p>
+    </div>
+  );
+}
+
 function LanguagePick({ onPick }) {
   return (
     <main className="card center">
-      <h1 className="brand">تأكّد · Ta'akkad</h1>
-      <p className="muted">اختر اللغة · Choose your language</p>
+      <h1 className="brand">تأكّد<br />Ta'akkad</h1>
+      <p className="muted">اختر اللغة<br />Choose your language</p>
       <div className="row">
         <button className="btn" onClick={() => onPick("ar")}>عربي</button>
         <button className="btn" onClick={() => onPick("en")}>English</button>
       </div>
+      <Partners t={STRINGS.ar} large />
+      <p className="muted" dir="ltr">{STRINGS.en.partners}</p>
     </main>
   );
 }
@@ -302,7 +316,7 @@ function Report({ t, lang, result, channel, onBack }) {
           <section className="channel">
             <h3>{t.channelTitle}: {rep.channel.name}</h3>
             <p>{t.channelSteps}</p>
-            <a href={rep.channel.info_url} target="_blank" rel="noopener noreferrer">{t.channelInfo} ↗</a>
+            <a href={rep.channel.info_url} target="_blank" rel="noopener noreferrer">{t.channelInfo}</a>
             <p className="muted">{t.verifiedOn} {rep.channel.verified_on}</p>
             <p className="muted">{t.notSubmitted}</p>
           </section>
@@ -368,7 +382,10 @@ export default function App() {
           <Report t={t} lang={lang} result={result} channel={draft.channel} onBack={() => setScreen("result")} />
         </>
       )}
-      <footer className="muted center-text">{t.footer}</footer>
+      <footer className="muted center-text">
+        <Partners t={t} />
+        <p>{t.footer}</p>
+      </footer>
     </div>
   );
 }

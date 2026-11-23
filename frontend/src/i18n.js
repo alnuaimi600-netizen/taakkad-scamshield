@@ -70,6 +70,9 @@ export const STRINGS = {
     back: "رجوع",
     error: "صار خطأ في الاتصال. حاول مرة ثانية.",
     footer: "نموذج أولي لهاكاثون SCAMSHIELD AI. البيانات في الأمثلة اصطناعية.",
+    partners: "مقدَّم ضمن هاكاثون «درع مكافحة الجريمة الإلكترونية» بتنظيم شرطة أبوظبي و42 أبوظبي. هذا ليس تطبيقاً رسمياً لشرطة أبوظبي.",
+    adPoliceAlt: "شعار شرطة أبوظبي",
+    fortyTwoAlt: "شعار 42 أبوظبي",
   },
   en: {
     dir: "ltr",
@@ -142,5 +145,8 @@ export const STRINGS = {
     back: "Back",
     error: "Connection problem. Please try again.",
     footer: "Prototype for the SCAMSHIELD AI hackathon. Example data is synthetic.",
+    partners: "Built for the SCAMSHIELD AI hackathon organised by Abu Dhabi Police and 42 Abu Dhabi. This is not an official Abu Dhabi Police app.",
+    adPoliceAlt: "Abu Dhabi Police logo",
+    fortyTwoAlt: "42 Abu Dhabi logo",
   },
 };

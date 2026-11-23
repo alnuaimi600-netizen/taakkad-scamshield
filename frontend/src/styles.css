@@ -1,42 +1,54 @@
+/* Palette drawn from the organisers' marks:
+   charcoal  - 42 Abu Dhabi wordmark  -> header, primary actions
+   police red #B40C24 - Abu Dhabi Police ring -> ONLY the high-suspicion state + header stripe
+   falcon bronze - the falcon           -> focus, highlights, links */
 :root {
-  --navy: #1f3a5f;
-  --navy-ink: #c9d6e6;
-  --teal: #1a8a8c;
-  --teal-dark: #136a6c;
-  --bg: #eaf1f9;
+  --navy: #1e1e1e;          /* header (charcoal) */
+  --navy-ink: #c8c2b4;
+  --stripe: #b40c24;
+  --teal: #1e1e1e;          /* primary action (charcoal) */
+  --teal-dark: #000000;
+  --accent: #7a6a4c;        /* falcon bronze */
+  --bg: #f3f3f1;
   --card: #ffffff;
-  --ink: #1d2733;
-  --muted: #5b6878;
-  --line: #d3dde9;
-  --high-bg: #fde8e8;
-  --high-line: #c9302c;
-  --high-ink: #9e1f1b;
-  --unclear-bg: #fff4dc;
-  --unclear-line: #c98a12;
-  --unclear-ink: #7a5208;
-  --none-bg: #eef1f4;
-  --none-line: #8a97a6;
-  --none-ink: #3c4754;
-  --mark: #ffe08a;
+  --ink: #1e1e1e;
+  --muted: #5e5a52;
+  --line: #dcd9d2;
+  --high-bg: #fbe9eb;
+  --high-line: #b40c24;
+  --high-ink: #8c0a1c;
+  --unclear-bg: #fdf3dd;
+  --unclear-line: #b7791f;
+  --unclear-ink: #6e4810;
+  --none-bg: #efefed;
+  --none-line: #8d8a83;
+  --none-ink: #3d3b37;
+  --mark: #eadfc4;
   font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", system-ui, sans-serif;
   color: var(--ink);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f1722;
-    --card: #17212e;
-    --ink: #e6ecf3;
-    --muted: #9aa8b8;
-    --line: #2c3a4b;
-    --high-bg: #3a1c1c;
-    --high-ink: #ffb4ae;
+    --navy: #000000;
+    --teal: #e9e4d8;
+    --teal-dark: #ffffff;
+    --accent: #c9b48a;
+    --bg: #121212;
+    --card: #1d1d1c;
+    --ink: #ecebe7;
+    --muted: #a8a397;
+    --line: #34332f;
+    --high-bg: #3b1217;
+    --high-line: #e0485c;
+    --high-ink: #ffb8c0;
     --unclear-bg: #3a2e14;
     --unclear-ink: #ffd88a;
-    --none-bg: #222c38;
-    --none-ink: #cfd8e3;
-    --mark: #806616;
+    --none-bg: #262624;
+    --none-ink: #d6d3cc;
+    --mark: #6b5a34;
   }
+  .btn:not(.outline) { color: #121212; }
 }
 
 * { box-sizing: border-box; }
@@ -51,7 +63,7 @@ body { margin: 0; background: var(--bg); font-size: 17px; line-height: 1.6; }
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
-  border-radius: 0 0 16px 16px;
+  border-bottom: 4px solid var(--stripe);
 }
 .hdr h1 { margin: 0; font-size: 1.6rem; }
 .hdr p { margin: 2px 0 0; color: var(--navy-ink); font-size: 0.9rem; }
@@ -59,7 +71,7 @@ body { margin: 0; background: var(--bg); font-size: 17px; line-height: 1.6; }
 .link { background: none; border: 0; color: #fff; text-decoration: underline; cursor: pointer; font: inherit; font-size: 0.9rem; padding: 4px; }
 
 .card { background: var(--card); margin: 16px; padding: 20px; border-radius: 16px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 2px 10px rgba(31, 58, 95, 0.08); }
-.center { text-align: center; align-items: center; margin-top: 18vh; }
+.center { text-align: center; align-items: center; margin-top: 8vh; }
 .brand { color: var(--navy); margin: 0; }
 @media (prefers-color-scheme: dark) { .brand { color: var(--ink); } }
 .center-text { text-align: center; }
@@ -79,7 +91,7 @@ textarea, input[type="datetime-local"] {
   color: var(--ink);
   resize: vertical;
 }
-textarea:focus, input:focus-visible, .btn:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+textarea:focus, input:focus-visible, .btn:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 .btn {
   font: inherit;
@@ -94,14 +106,14 @@ textarea:focus, input:focus-visible, .btn:focus-visible { outline: 3px solid var
 }
 .btn:hover:not(:disabled) { background: var(--teal-dark); border-color: var(--teal-dark); }
 .btn.outline { background: transparent; color: var(--teal); }
-.btn.outline:hover:not(:disabled) { background: rgba(26, 138, 140, 0.08); }
+.btn.outline:hover:not(:disabled) { background: var(--bg); }
 .btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
 fieldset { border: 0; padding: 0; margin: 0; }
 .seg { display: flex; gap: 8px; flex-wrap: wrap; }
 .seg legend { margin-bottom: 6px; }
 .seg label { flex: 1; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 10px; text-align: center; cursor: pointer; }
-.seg label.on { border-color: var(--teal); background: rgba(26, 138, 140, 0.1); font-weight: 700; }
+.seg label.on { border-color: var(--teal); background: var(--bg); font-weight: 700; box-shadow: inset 0 -3px 0 var(--accent); }
 .seg input { position: absolute; opacity: 0; pointer-events: none; }
 .radios { display: flex; flex-direction: column; gap: 6px; }
 .check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
@@ -119,7 +131,7 @@ fieldset { border: 0; padding: 0; margin: 0; }
 .verdict.no_visible_indicators { background: var(--none-bg); border-color: var(--none-line); color: var(--none-ink); }
 
 h3 { margin: 4px 0 0; font-size: 1.05rem; }
-.summary { margin: 0; padding: 10px 12px; border-inline-start: 4px solid var(--navy); background: var(--bg); border-radius: 8px; }
+.summary { margin: 0; padding: 10px 12px; border-inline-start: 4px solid var(--accent); background: var(--bg); border-radius: 8px; }
 .reasons { margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 6px; }
 .reasons.plain { list-style: "✓  "; }
 .msg { white-space: pre-wrap; word-break: break-word; background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; }
@@ -134,5 +146,16 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 2
 .channel { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
 .channel h3 { margin: 0; }
 .channel p { margin: 0; }
-.channel a { color: var(--teal); font-weight: 700; }
+.channel a { color: var(--accent); font-weight: 700; }
 footer { padding: 0 16px; }
+
+/* Organisers' marks: shown as hackathon credit only, on a white plate so the
+   original artwork stays legible in dark mode. */
+.partners { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px; }
+.partners .logos { display: flex; align-items: center; gap: 18px; background: #fff; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--line); }
+.partners img { display: block; height: 44px; width: auto; }
+.partners img.wide { height: 30px; }
+.partners.large .logos { gap: 28px; padding: 14px 22px; }
+.partners.large img { height: 80px; }
+.partners.large img.wide { height: 46px; }
+.partners p { margin: 0; text-align: center; }
