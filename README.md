@@ -2,6 +2,10 @@
 
 **SCAMSHIELD AI Hackathon** (Abu Dhabi Police × 42 Abu Dhabi, November 2026).
 
+**Team HAM:** Ali Al Nuaimi · Mai Aleissaee · Hamad Alkuwaiti
+
+**Presentation:** [`docs/taakkad-team-deck.pptx`](docs/taakkad-team-deck.pptx). It has 12 slides on the problem, a working demo, the technical architecture, why we chose these models, the privacy mechanism, the link with the security authority, measured results, and next steps. Speaker notes are on every slide.
+
 > **بالعربي باختصار:** «تأكّد» تطبيق ويب تلصق فيه رسالة واتساب أو SMS مشبوهة (أو ترفع لقطة شاشة)، فيحجب بياناتك الحساسة أولاً، ثم يفحص النص والرابط **بدون فتح الرابط**، ويعطيك واحدة من ثلاث حالات: **اشتباه عالٍ / غير واضح / لا مؤشرات ظاهرة** (لا يقول «آمن» أبداً)، مع ثلاثة أسباب كحد أقصى بلغة بسيطة، وخطوة آمنة، وبلاغ جاهز تنسخه وترسله بنفسك عبر منصة eCrime في تطبيق وزارة الداخلية.
 
 ---
