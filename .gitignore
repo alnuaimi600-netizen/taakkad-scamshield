@@ -14,3 +14,6 @@ backend/storage/
 /اعلان المسابقة/
 /42-Abu-Dhabi.jpg
 /شعار شرطة ابوظبي.jpg
+
+# Office lock files (created while a document is open)
+~$*
