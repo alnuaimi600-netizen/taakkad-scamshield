@@ -1,0 +1,744 @@
+{
+  "run_at": "2026-11-23 15:16 UTC",
+  "mode": "rules only",
+  "llm_calls_succeeded": 0,
+  "n": 60,
+  "metrics": {
+    "false_alarms_benign_high": "1/22 (5%)",
+    "benign_unclear": "0/22 (0%)",
+    "misses_scam_no_indicators": "0/30 (0%)",
+    "scam_high": "30/30 (100%)",
+    "scam_unclear": "0/30 (0%)",
+    "card_or_otp_request_detected_high": "12/12 (100%)",
+    "otp_delivery_false_alarms_high": "1/8 (12%)",
+    "unclear_overall": "3/60 (5%)",
+    "ambiguous_distribution": {
+      "no_visible_indicators": 5,
+      "unclear": 3
+    }
+  },
+  "per_message": [
+    {
+      "id": "s01",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_unknown_for_claim",
+        "payment_request",
+        "urgency"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s02",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_card",
+        "link_mismatch_claimed",
+        "brand_in_host"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s03",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s04",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_card",
+        "link_mismatch_claimed",
+        "brand_in_host"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s05",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_card",
+        "receive_money_link",
+        "brand_in_host"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s06",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_card",
+        "receive_money_link",
+        "link_mismatch_claimed"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s07",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_otp"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s08",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_otp"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s09",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_card",
+        "asks_otp",
+        "link_mismatch_claimed"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s10",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_otp",
+        "link_mismatch_claimed",
+        "lookalike"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s11",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s12",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s13",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "payment_request",
+        "prize"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s14",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "shortener",
+        "payment_request",
+        "prize"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s15",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "urgency"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s16",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "lookalike",
+        "urgency"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s17",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_card",
+        "link_mismatch_claimed",
+        "lookalike"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s18",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "no_https"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s19",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "ip_host",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s20",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_personal",
+        "link_mismatch_claimed",
+        "brand_in_host"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s21",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s22",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "unusual_tld",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s23",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_personal"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s24",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_otp"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s25",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "punycode",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s26",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_unknown_for_claim",
+        "shortener",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s27",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_card",
+        "asks_otp",
+        "link_mismatch_claimed"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s28",
+      "lang": "en",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s29",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "scam",
+      "asks_card_or_otp": true,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_otp",
+        "link_mismatch_claimed",
+        "brand_in_host"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "s30",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "scam",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "link_mismatch_claimed",
+        "brand_in_host",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "l01",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l02",
+      "lang": "en",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l03",
+      "lang": "en",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l04",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l05",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l06",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l07",
+      "lang": "en",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l08",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l09",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l10",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l11",
+      "lang": "en",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l12",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l13",
+      "lang": "en",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "l14",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "legit",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "o01",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "o02",
+      "lang": "en",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "o03",
+      "lang": "en",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "o04",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "o05",
+      "lang": "en",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "o06",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "o07",
+      "lang": "en",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "high_suspicion",
+      "reasons": [
+        "asks_otp"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "o08",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "otp_delivery",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "a01",
+      "lang": "en",
+      "channel": "sms",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "a02",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "unclear",
+      "reasons": [
+        "shortener"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "a03",
+      "lang": "en",
+      "channel": "whatsapp",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "unclear",
+      "reasons": [
+        "urgency",
+        "payment_request"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "a04",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "a05",
+      "lang": "en",
+      "channel": "sms",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "unclear",
+      "reasons": [
+        "payment_request",
+        "no_https"
+      ],
+      "llm_used": false
+    },
+    {
+      "id": "a06",
+      "lang": "ar",
+      "channel": "whatsapp",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "a07",
+      "lang": "en",
+      "channel": "sms",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    },
+    {
+      "id": "a08",
+      "lang": "ar",
+      "channel": "sms",
+      "category": "ambiguous",
+      "asks_card_or_otp": false,
+      "status": "no_visible_indicators",
+      "reasons": [],
+      "llm_used": false
+    }
+  ]
+}

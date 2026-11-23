@@ -1,0 +1,35 @@
+{
+  "_meta": {
+    "description": "Entities a message may claim to be, with the domains they officially use. Used for text-only comparison; nothing here is ever fetched.",
+    "status": "UNVERIFIED. Real-entity domains below were entered from general knowledge and MUST be checked against each entity's own official channels (and dated) before being relied on. See docs/spec.md section 4.",
+    "demo_entities": "Entries with \"demo\": true are fictional and use reserved .test domains. Tests and eval/ use them so that no real organisation's systems are involved."
+  },
+  "entities": [
+    {"id": "aramex", "category": "shipping", "names": {"en": "Aramex", "ar": "أرامكس"}, "aliases": ["aramex", "ارامكس", "أرامكس"], "domains": ["aramex.com"], "verified": false, "source": null},
+    {"id": "emirates_post", "category": "shipping", "names": {"en": "Emirates Post", "ar": "بريد الإمارات"}, "aliases": ["emirates post", "emiratespost", "بريد الامارات", "بريد الإمارات"], "domains": ["emiratespost.ae"], "verified": false, "source": null},
+    {"id": "dhl", "category": "shipping", "names": {"en": "DHL", "ar": "DHL"}, "aliases": ["dhl"], "domains": ["dhl.com"], "verified": false, "source": null},
+    {"id": "fedex", "category": "shipping", "names": {"en": "FedEx", "ar": "فيديكس"}, "aliases": ["fedex", "فيديكس", "فيدكس"], "domains": ["fedex.com"], "verified": false, "source": null},
+    {"id": "emirates_nbd", "category": "bank", "names": {"en": "Emirates NBD", "ar": "بنك الإمارات دبي الوطني"}, "aliases": ["emirates nbd", "enbd", "الامارات دبي الوطني", "الإمارات دبي الوطني"], "domains": ["emiratesnbd.com"], "verified": false, "source": null},
+    {"id": "adcb", "category": "bank", "names": {"en": "ADCB", "ar": "بنك أبوظبي التجاري"}, "aliases": ["adcb", "ابوظبي التجاري", "أبوظبي التجاري"], "domains": ["adcb.com"], "verified": false, "source": null},
+    {"id": "fab", "category": "bank", "names": {"en": "First Abu Dhabi Bank", "ar": "بنك أبوظبي الأول"}, "aliases": ["first abu dhabi bank", "bankfab", "ابوظبي الاول", "أبوظبي الأول"], "domains": ["bankfab.com"], "verified": false, "source": null},
+    {"id": "etisalat", "category": "telecom", "names": {"en": "etisalat by e&", "ar": "اتصالات من e&"}, "aliases": ["etisalat", "اتصالات"], "domains": ["etisalat.ae", "eand.com"], "verified": false, "source": null},
+    {"id": "du", "category": "telecom", "names": {"en": "du", "ar": "دو"}, "aliases": [], "domains": ["du.ae"], "verified": false, "source": null},
+    {"id": "ad_police", "category": "government", "names": {"en": "Abu Dhabi Police", "ar": "شرطة أبوظبي"}, "aliases": ["abu dhabi police", "شرطة ابوظبي", "شرطة أبوظبي"], "domains": ["adpolice.gov.ae"], "verified": false, "source": null},
+    {"id": "dubai_police", "category": "government", "names": {"en": "Dubai Police", "ar": "شرطة دبي"}, "aliases": ["dubai police", "شرطة دبي"], "domains": ["dubaipolice.gov.ae"], "verified": false, "source": null},
+    {"id": "moi", "category": "government", "names": {"en": "Ministry of Interior", "ar": "وزارة الداخلية"}, "aliases": ["ministry of interior", "وزارة الداخلية"], "domains": ["moi.gov.ae"], "verified": false, "source": null},
+    {"id": "rta", "category": "government", "names": {"en": "RTA", "ar": "هيئة الطرق والمواصلات"}, "aliases": ["rta", "هيئة الطرق والمواصلات"], "domains": ["rta.ae"], "verified": false, "source": null},
+    {"id": "salik", "category": "government", "names": {"en": "Salik", "ar": "سالك"}, "aliases": ["salik", "سالك"], "domains": ["salik.ae"], "verified": false, "source": null},
+    {"id": "u_ae", "category": "government", "names": {"en": "UAE Government portal", "ar": "البوابة الرسمية لحكومة الإمارات"}, "aliases": [], "domains": ["u.ae"], "verified": false, "source": null},
+
+    {"id": "falcon_express", "demo": true, "category": "shipping", "names": {"en": "Falcon Express", "ar": "فالكون إكسبريس"}, "aliases": ["falcon express", "فالكون اكسبريس", "فالكون إكسبريس"], "domains": ["falcon-express.test"], "verified": true, "source": "fictional"},
+    {"id": "oasis_bank", "demo": true, "category": "bank", "names": {"en": "Oasis Bank", "ar": "بنك الواحة"}, "aliases": ["oasis bank", "بنك الواحة"], "domains": ["oasisbank.test"], "verified": true, "source": "fictional"},
+    {"id": "najm_telecom", "demo": true, "category": "telecom", "names": {"en": "Najm Telecom", "ar": "نجم للاتصالات"}, "aliases": ["najm telecom", "نجم للاتصالات"], "domains": ["najmtelecom.test"], "verified": true, "source": "fictional"},
+    {"id": "souq_waha", "demo": true, "category": "marketplace", "names": {"en": "Souq Al Waha", "ar": "سوق الواحة"}, "aliases": ["souq al waha", "souq waha", "سوق الواحة"], "domains": ["souqwaha.test"], "verified": true, "source": "fictional"}
+  ],
+  "generic_claims": {
+    "shipping": ["shipment", "parcel", "package", "delivery", "courier", "شحنة", "شحنتك", "طرد", "طردك", "الشحنة", "توصيل"],
+    "bank": ["bank", "your card", "your account", "بنك", "البنك", "المصرف", "حسابك البنكي", "بطاقتك"],
+    "government": ["police", "ministry", "fine", "violation", "شرطة", "الشرطة", "وزارة", "مخالفة", "غرامة"],
+    "telecom": ["telecom", "your line", "sim", "خطك", "الشريحة"]
+  }
+}
