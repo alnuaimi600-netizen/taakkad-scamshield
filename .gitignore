@@ -17,3 +17,4 @@ backend/storage/
 
 # Office lock files (created while a document is open)
 ~$*
+frontend/dist-demo/

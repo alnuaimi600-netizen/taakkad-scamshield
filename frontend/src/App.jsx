@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { STRINGS } from "./i18n.js";
-import { checkMessage, prepareReport } from "./api.js";
+import { checkMessage, prepareReport, warmUp } from "./api.js";
 import { load, save } from "./storage.js";
 import { voiceSupported, startVoice } from "./voice.js";
 
@@ -30,10 +30,13 @@ function Header({ t, title, sub, onPrivacy, onLang }) {
 function Partners({ t, large = false }) {
   return (
     <div className={large ? "partners large" : "partners"}>
-      <div className="logos">
-        <img src="/partners/adpolice.png" alt={t.adPoliceAlt} />
-        <img className="wide" src="/partners/42-abudhabi.png" alt={t.fortyTwoAlt} />
-      </div>
+      {/* The hosted single-file demo omits the organisers' logos; the text credit stays. */}
+      {import.meta.env.VITE_DEMO !== "1" && (
+        <div className="logos">
+          <img src="/partners/adpolice.png" alt={t.adPoliceAlt} />
+          <img className="wide" src="/partners/42-abudhabi.png" alt={t.fortyTwoAlt} />
+        </div>
+      )}
       <p className="muted" dir={t.dir}>{t.partners}</p>
     </div>
   );
@@ -82,6 +85,8 @@ function Privacy({ t, firstTime, onAgree, onClose }) {
 function PublicAlerts({ lang }) {
   const [alerts, setAlerts] = useState([]);
   useEffect(() => {
+    warmUp();
+    if (import.meta.env.VITE_DEMO === "1") return undefined;
     let alive = true;
     fetch(`/api/alerts?lang=${lang}`)
       .then((r) => (r.ok ? r.json() : []))
