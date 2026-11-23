@@ -1,0 +1,4 @@
+# Optional: only needed when TAAKKAD_LLM=1.
+# On Windows, if this fails with a long-path error, enable long paths or clone the
+# repo into a short folder (e.g. C:\taakkad). The app works without it (rules only).
+anthropic==2.12.0

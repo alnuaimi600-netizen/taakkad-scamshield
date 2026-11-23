@@ -79,6 +79,15 @@ def test_reasons_follow_ui_language():
     assert en.isascii() and not ar.isascii()
 
 
+@pytest.mark.parametrize("payload", ["a." * 2500, "1-" * 2500, "www." + "a." * 2400, "a-" * 2500])
+def test_crafted_long_input_is_fast(payload):
+    # Regression: unbounded domain-label repetition made "a.a.a…" take ~3 s (ReDoS).
+    import time
+    start = time.perf_counter()
+    analyse_message(payload[:5000], "en", use_llm=False)
+    assert time.perf_counter() - start < 1.0
+
+
 def test_analysis_sees_only_masked_text():
     r = analyse_message("Send your card 4111 1111 1111 1111 to http://x.test", "en", use_llm=False)
     assert "4111" not in r["masked_text"]

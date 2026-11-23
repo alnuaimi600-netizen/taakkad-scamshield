@@ -12,5 +12,8 @@ function getWorker() {
 export async function readImage(file) {
   const worker = await getWorker();
   const { data } = await worker.recognize(file);
-  return (data.text || "").replace(/\n{3,}/g, "\n\n").trim();
+  return (data.text || "")
+    .replace(/[​-‏‪-‮⁦-⁩؜﻿]/g, "") // OCR adds invisible direction marks
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }

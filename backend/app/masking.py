@@ -26,7 +26,8 @@ BARE_TLDS = (
 )
 URL_RE = re.compile(
     r"(?:https?://|www\.)[^\s<>\"'،]+"
-    r"|\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:" + BARE_TLDS + r"|xn--[a-z0-9-]+)\b"
+    # {1,8} labels (not +): unbounded repetition made "a.a.a.…" inputs quadratic (ReDoS).
+    r"|\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.){1,8}(?:" + BARE_TLDS + r"|xn--[a-z0-9-]+)\b"
     r"(?:[/?#][^\s<>\"'،]*)?",
     re.IGNORECASE,
 )
@@ -68,8 +69,13 @@ class MaskResult:
         return sum(self.counts.values())
 
 
+# Invisible direction / zero-width characters. OCR output is full of LRM/RLM, and
+# they can also be used to disguise a link. Removed before anything else.
+_INVISIBLE = re.compile(r"[​-‏‪-‮⁦-⁩؜﻿]")
+
+
 def normalize_digits(text: str) -> str:
-    return text.translate(_DIGIT_MAP)
+    return _INVISIBLE.sub("", text).translate(_DIGIT_MAP)
 
 
 def luhn_valid(digits: str) -> bool:

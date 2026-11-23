@@ -144,7 +144,7 @@ cd backend
 python -m venv .venv
 # Windows: .venv\Scripts\activate    macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-pytest                                   # 55 tests
+pytest                                   # 60 tests
 uvicorn app.main:app --port 8000         # API on http://127.0.0.1:8000 (docs at /api/docs)
 ```
 
@@ -167,6 +167,7 @@ npm run dev        # http://localhost:5173 (proxies /api to :8000)
 
 ### Optional: LLM layer
 ```bash
+pip install -r requirements-llm.txt   # Windows: if you get a long-path error, clone into a short folder like C:\taakkad
 export ANTHROPIC_API_KEY=...        # Windows PowerShell: $env:ANTHROPIC_API_KEY="..."
 export TAAKKAD_LLM=1                # off unless set
 # optional: export TAAKKAD_LLM_MODEL=claude-opus-5-5
@@ -183,7 +184,7 @@ Writes `eval/results.md` and `eval/results.json`.
 backend/app/     masking, url_checks, text_signals, scoring, llm, report, analyzer,
                  stats (anonymous aggregates, alerts, confirmed domains), main (FastAPI)
 backend/scripts/ seed_demo_stats.py (synthetic demo data for the dashboard)
-backend/tests/   55 pytest tests (masking, link checks, verdict rules, API/privacy, dashboard)
+backend/tests/   60 pytest tests (masking, link checks, verdict rules, API/privacy, dashboard)
 frontend/src/    App.jsx (public app), Admin.jsx (staff dashboard at /admin),
                  i18n.js / adminI18n.js (AR/EN), ocr.js, voice.js, styles.css
 data/            official_domains.json (UNVERIFIED real entries + fictional .test demo entities),

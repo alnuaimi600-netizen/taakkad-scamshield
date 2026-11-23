@@ -56,5 +56,11 @@ def test_urls_survive_masking():
     assert url in r.text
 
 
+def test_invisible_direction_marks_removed():
+    # OCR output often wraps words and links in LRM/RLM marks.
+    r = mask("‎http://example-track.test/pay‏ ‮card‬")
+    assert r.text == "http://example-track.test/pay card"
+
+
 def test_short_sender_numbers_untouched():
     assert mask("Pay AED 25 by 5pm").text == "Pay AED 25 by 5pm"
