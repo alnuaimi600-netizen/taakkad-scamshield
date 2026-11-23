@@ -9,3 +9,8 @@ build/
 .pytest_cache/
 backend/storage/
 .claude/
+
+# Local reference material with personal data (not for the public repo)
+/اعلان المسابقة/
+/42-Abu-Dhabi.jpg
+/شعار شرطة ابوظبي.jpg
