@@ -28,8 +28,11 @@
   color: var(--ink);
 }
 
+/* Theme: follows the device by default; the header toggle sets <html data-theme="light|dark">. */
+:root { color-scheme: light; }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --navy: #000000;
     --teal: #e9e4d8;
     --teal-dark: #ffffff;
@@ -48,8 +51,31 @@
     --none-ink: #d6d3cc;
     --mark: #6b5a34;
   }
-  .btn:not(.outline) { color: #121212; }
+  :root:not([data-theme="light"]) .btn:not(.outline) { color: #121212; }
+  :root:not([data-theme="light"]) .brand { color: var(--ink); }
 }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --navy: #000000;
+  --teal: #e9e4d8;
+  --teal-dark: #ffffff;
+  --accent: #c9b48a;
+  --bg: #121212;
+  --card: #1d1d1c;
+  --ink: #ecebe7;
+  --muted: #a8a397;
+  --line: #34332f;
+  --high-bg: #3b1217;
+  --high-line: #e0485c;
+  --high-ink: #ffb8c0;
+  --unclear-bg: #3a2e14;
+  --unclear-ink: #ffd88a;
+  --none-bg: #262624;
+  --none-ink: #d6d3cc;
+  --mark: #6b5a34;
+}
+:root[data-theme="dark"] .btn:not(.outline) { color: #121212; }
+:root[data-theme="dark"] .brand { color: var(--ink); }
 
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); font-size: 17px; line-height: 1.6; }
@@ -68,12 +94,12 @@ body { margin: 0; background: var(--bg); font-size: 17px; line-height: 1.6; }
 .hdr h1 { margin: 0; font-size: 1.6rem; }
 .hdr p { margin: 2px 0 0; color: var(--navy-ink); font-size: 0.9rem; }
 .hdr nav { display: flex; gap: 10px; flex-shrink: 0; }
+.link.theme-toggle { text-decoration: none; font-size: 1.15rem; line-height: 1; }
 .link { background: none; border: 0; color: #fff; text-decoration: underline; cursor: pointer; font: inherit; font-size: 0.9rem; padding: 4px; }
 
 .card { background: var(--card); margin: 16px; padding: 20px; border-radius: 16px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 2px 10px rgba(31, 58, 95, 0.08); }
 .center { text-align: center; align-items: center; margin-top: 8vh; }
 .brand { color: var(--navy); margin: 0; }
-@media (prefers-color-scheme: dark) { .brand { color: var(--ink); } }
 .center-text { text-align: center; }
 .muted { color: var(--muted); font-size: 0.88rem; margin: 0; }
 .row { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -162,8 +188,9 @@ footer { padding: 0 16px; }
   --st-none: #6f6c66;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --st-high: #e0485c; --st-unclear: #bd8a35; --st-none: #726e68; }
+  :root:not([data-theme="light"]) { --st-high: #e0485c; --st-unclear: #bd8a35; --st-none: #726e68; }
 }
+:root[data-theme="dark"] { --st-high: #e0485c; --st-unclear: #bd8a35; --st-none: #726e68; }
 .app.admin { max-width: 1100px; }
 .admin-login { max-width: 420px; margin-inline: auto; }
 .field, select {

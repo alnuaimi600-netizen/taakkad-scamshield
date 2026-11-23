@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { ADMIN } from "./adminI18n.js";
 import { load, save } from "./storage.js";
+import { STRINGS } from "./i18n.js";
+import { ThemeToggle } from "./theme.jsx";
 
 const STATUSES = ["high_suspicion", "unclear", "no_visible_indicators"]; // stacked from the baseline up
 
@@ -292,6 +294,7 @@ export default function Admin() {
         <p>{a.sub}</p>
       </div>
       <nav>
+        <ThemeToggle t={STRINGS[lang] || STRINGS.ar} />
         <button className="link" onClick={() => { const l = lang === "ar" ? "en" : "ar"; save("lang", l); setLang(l); }}>
           {lang === "ar" ? "English" : "عربي"}
         </button>

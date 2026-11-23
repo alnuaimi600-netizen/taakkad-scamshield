@@ -2,6 +2,9 @@ import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./styles.css";
+import { applySavedTheme } from "./theme.jsx";
+
+applySavedTheme();
 
 // The staff dashboard is a separate bundle, loaded only at /admin.
 const Admin = lazy(() => import("./Admin.jsx"));

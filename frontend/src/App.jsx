@@ -3,6 +3,7 @@ import { STRINGS } from "./i18n.js";
 import { checkMessage, prepareReport, warmUp } from "./api.js";
 import { load, save } from "./storage.js";
 import { voiceSupported, startVoice } from "./voice.js";
+import { ThemeToggle } from "./theme.jsx";
 
 function Header({ t, title, sub, onPrivacy, onLang }) {
   return (
@@ -12,6 +13,7 @@ function Header({ t, title, sub, onPrivacy, onLang }) {
         <p>{sub}</p>
       </div>
       <nav>
+        <ThemeToggle t={t} />
         {onLang && (
           <button className="link" onClick={onLang}>
             {t.dir === "rtl" ? "English" : "عربي"}

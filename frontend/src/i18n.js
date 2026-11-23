@@ -5,6 +5,8 @@ export const STRINGS = {
     tagline: "الصق الرسالة وخلّنا نتأكد قبل لا تضغط",
     chooseLang: "اختر اللغة",
     privacyLink: "الخصوصية",
+    themeDark: "الوضع الليلي",
+    themeLight: "الوضع النهاري",
     privacyTitle: "قبل ما نبدأ: خصوصيتك",
     privacyPoints: [
       "لا نطلب اسمك أو هويتك أو حسابك البنكي، ولا يوجد تسجيل دخول.",
@@ -81,6 +83,8 @@ export const STRINGS = {
     tagline: "Paste the message and let's check before you tap",
     chooseLang: "Choose your language",
     privacyLink: "Privacy",
+    themeDark: "Dark mode",
+    themeLight: "Light mode",
     privacyTitle: "Before we start: your privacy",
     privacyPoints: [
       "We don't ask for your name, ID or bank account, and there's no login.",
