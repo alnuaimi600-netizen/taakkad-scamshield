@@ -20,6 +20,8 @@
     {"id": "rta", "category": "government", "names": {"en": "RTA", "ar": "هيئة الطرق والمواصلات"}, "aliases": ["rta", "هيئة الطرق والمواصلات"], "domains": ["rta.ae"], "verified": false, "source": null},
     {"id": "salik", "category": "government", "names": {"en": "Salik", "ar": "سالك"}, "aliases": ["salik", "سالك"], "domains": ["salik.ae"], "verified": false, "source": null},
     {"id": "u_ae", "category": "government", "names": {"en": "UAE Government portal", "ar": "البوابة الرسمية لحكومة الإمارات"}, "aliases": [], "domains": ["u.ae"], "verified": false, "source": null},
+    {"id": "tamm", "category": "government", "names": {"en": "TAMM", "ar": "منصة تم"}, "aliases": ["tamm", "منصة تم", "تطبيق تم"], "domains": ["tamm.abudhabi"], "verified": false, "source": null},
+    {"id": "uae_pass", "category": "government", "names": {"en": "UAE PASS", "ar": "الهوية الرقمية UAE PASS"}, "aliases": ["uae pass", "uaepass", "الهوية الرقمية"], "domains": ["uaepass.ae"], "verified": false, "source": null},
 
     {"id": "falcon_express", "demo": true, "category": "shipping", "names": {"en": "Falcon Express", "ar": "فالكون إكسبريس"}, "aliases": ["falcon express", "فالكون اكسبريس", "فالكون إكسبريس"], "domains": ["falcon-express.test"], "verified": true, "source": "fictional"},
     {"id": "oasis_bank", "demo": true, "category": "bank", "names": {"en": "Oasis Bank", "ar": "بنك الواحة"}, "aliases": ["oasis bank", "بنك الواحة"], "domains": ["oasisbank.test"], "verified": true, "source": "fictional"},
@@ -29,7 +31,7 @@
   "generic_claims": {
     "shipping": ["shipment", "parcel", "package", "delivery", "courier", "شحنة", "شحنتك", "طرد", "طردك", "الشحنة", "توصيل"],
     "bank": ["bank", "your card", "your account", "بنك", "البنك", "المصرف", "حسابك البنكي", "بطاقتك"],
-    "government": ["police", "ministry", "fine", "violation", "شرطة", "الشرطة", "وزارة", "مخالفة", "غرامة"],
+    "government": ["police", "ministry", "fine", "violation", "شرطة", "الشرطة", "وزارة", "مخالفة", "غرامة", "traffic fine", "مخالفة مرورية", "مخالفات"],
     "telecom": ["telecom", "your line", "sim", "خطك", "الشريحة"]
   }
 }

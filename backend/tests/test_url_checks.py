@@ -76,3 +76,21 @@ def test_alias_inside_longer_name_is_not_a_claim():
 def test_generic_claim_unknown_link():
     _, findings, _ = check_message_links("شحنتك معلقة", ["http://example-track.test/pay"])
     assert [f.code for f in findings] == ["link_unknown_for_claim"]
+
+
+def test_at_sign_trick_survives_masking_and_is_high():
+    from app.analyzer import analyse_message
+    r = analyse_message("https://oasisbank.test@login-check.test/session", "en", use_llm=False)
+    assert r["status"] == "high_suspicion"
+    assert "at_sign" in r["links"][0]["flags"]
+
+
+def test_plain_email_is_still_masked():
+    from app.masking import mask
+    assert "ali@mail.test" not in mask("راسلني على ali@mail.test").text
+
+
+def test_malformed_bracket_host_does_not_crash():
+    from app.analyzer import analyse_message
+    assert analyse_message("https://[nothing]/x", "en", use_llm=False)["status"] in {
+        "high_suspicion", "unclear", "no_visible_indicators"}

@@ -144,7 +144,27 @@ NOT_GUARANTEED = {
     "en": "We can't confirm who actually sent the message, and we don't open links. This is an estimate, not a final verdict.",
 }
 
+# Risk score bands. The 0-100 number always falls inside its status band, so it can
+# never contradict the status, and it never reaches 0 (we never say "safe").
+RISK_BANDS = {NONE: (5, 24), UNCLEAR: (30, 65), HIGH: (70, 100)}
+
+
+def risk_score(status: str, raw: int) -> int:
+    """Map the summed signal weights to 0-100 inside the status band."""
+    lo, hi = RISK_BANDS[status]
+    if status == NONE:
+        value = lo + raw * 10
+    elif status == UNCLEAR:
+        value = lo + (raw - 2) * 9
+    else:
+        value = lo + raw * 3
+    return max(lo, min(hi, value))
+
+
 HARD_HIGH = {"asks_card", "asks_otp", "asks_personal", "receive_money_link", "confirmed_by_authority"}
+# A link that dresses up as a known organisation it does not belong to is enough on
+# its own (this is what a link pasted without any message looks like).
+IMPERSONATING_LINK = {"lookalike", "brand_in_host", "at_sign"}
 
 
 @dataclass
@@ -159,6 +179,7 @@ class Reason:
 class Verdict:
     status: str
     score: int
+    risk: int
     reasons: list[Reason]
     highlights: list[str]
     safe_action: str
@@ -218,6 +239,8 @@ def decide(
 
     if HARD_HIGH & collected.keys():
         status = HIGH  # rule 3: card / OTP request => high, even with an official link
+    elif IMPERSONATING_LINK & collected.keys():
+        status = HIGH
     elif len(strong) >= 2 or (strong and medium) or score >= 6:
         status = HIGH
     elif score >= 2:
@@ -253,6 +276,7 @@ def decide(
     return Verdict(
         status=status,
         score=score,
+        risk=risk_score(status, score),
         reasons=reasons,
         highlights=highlights,
         safe_action=SAFE_ACTION[status][lang],

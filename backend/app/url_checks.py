@@ -60,8 +60,11 @@ def extract_urls(text: str) -> list[str]:
 def _parse(url: str) -> tuple[str, str]:
     """Return (scheme, host) without network access."""
     candidate = url if re.match(r"^[a-z][a-z0-9+.-]*://", url, re.I) else "http-less://" + url
-    parts = urlsplit(candidate)
-    host = (parts.hostname or "").lower().rstrip(".")
+    try:
+        parts = urlsplit(candidate)
+        host = (parts.hostname or "").lower().rstrip(".")
+    except ValueError:  # e.g. a malformed "[...]" host: treat as no host, never crash
+        return "", ""
     scheme = parts.scheme.lower()
     return ("" if scheme == "http-less" else scheme), host
 

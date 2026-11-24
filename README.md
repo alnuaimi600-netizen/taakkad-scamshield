@@ -4,6 +4,8 @@
 
 **Team HAM:** Ali Al Nuaimi · Mai Aleissaee · Hamad Alkuwaiti
 
+**Try it on your phone:** <https://claude.ai/artifact/FCk19F8GzLCWcma9wYGoxw> (in-browser demo build; see *Demo build* below for what it includes).
+
 **Presentation:** [`docs/taakkad-team-deck.pptx`](docs/taakkad-team-deck.pptx). It has 12 slides on the problem, a working demo, the technical architecture, why we chose these models, the privacy mechanism, the link with the security authority, measured results, and next steps. Speaker notes are on every slide.
 
 > **بالعربي باختصار:** «تأكّد» تطبيق ويب تلصق فيه رسالة واتساب أو SMS مشبوهة (أو ترفع لقطة شاشة)، فيحجب بياناتك الحساسة أولاً، ثم يفحص النص والرابط **بدون فتح الرابط**، ويعطيك واحدة من ثلاث حالات: **اشتباه عالٍ / غير واضح / لا مؤشرات ظاهرة** (لا يقول «آمن» أبداً)، مع ثلاثة أسباب كحد أقصى بلغة بسيطة، وخطوة آمنة، وبلاغ جاهز تنسخه وترسله بنفسك عبر منصة eCrime في تطبيق وزارة الداخلية.
@@ -19,7 +21,7 @@
 1. **Choose language** (Arabic / English, full RTL/LTR) → **privacy page once** (always reachable from the header).
 2. **Input:** paste the text (main path), attach a **screenshot** (OCR runs *in the browser*; the image never leaves the device), or **voice** (optional, browser Web Speech API).
 3. **Check:** sensitive data is **masked first**, then the link is checked **as text only** and the wording is checked for warning signs.
-4. **Result:** one of three states, up to **3 plain-language reasons**, the triggering words/links **highlighted**, what we checked and what we can't guarantee.
+4. **Result:** one of three states with a **risk score (0–100)**, up to **3 plain-language reasons**, the triggering words/links **highlighted**, what we checked and what we can't guarantee.
 5. **Safe action + "Report the link":** a ready-made report (link, masked text, time received, channel, "what happened?") with a **Copy** button and directions to the **federal eCrime platform in the MOI UAE app**. If the user says they entered card details or paid, the first thing shown is **"Contact your bank right now"**.
 
 | State | When | Suggested action |
@@ -27,6 +29,10 @@
 | `high_suspicion` | Strong signals: link doesn't match the claimed organisation, card/OTP request, pressure | Don't tap, don't pay, report |
 | `unclear` | Few or mixed signals | Check with the organisation yourself, via its own app or website |
 | `no_visible_indicators` | Nothing found — **this does not mean safe** | Best to open the organisation's app yourself |
+
+**Risk score.** Each result also shows a 0–100 score built from the weights of the signals found. It always stays inside its state's band (`no_visible_indicators` 5–24, `unclear` 30–65, `high_suspicion` 70–100; `scoring.RISK_BANDS`), so the number can never contradict the state. It never reaches 0, because we never say "safe".
+
+**A link on its own.** A user (or a reviewer) can paste just a link. A link that dresses up as a known organisation it doesn't belong to (look-alike spelling, the brand inside another domain, or the `@` trick) is `high_suspicion` on its own. Shorteners, raw IP addresses and punycode give `unclear`, because the text alone can't show where they lead.
 
 ### The authority side: linking the public and the security authority | الربط بين الجمهور والجهة الأمنية
 
@@ -50,7 +56,7 @@ Public (Ta'akkad app)                                    Security authority (/ad
 - **Later, with an official partnership:** direct, consented submission to eCrime with a case number returned. Not built, because it needs an agreement and an API from the Ministry of Interior.
 
 ### Product rules that the code enforces
-1. The app **never says "safe"** — only the three states above (`backend/app/scoring.py`, tested in `test_verdicts.py`).
+1. The app **never says "safe"** — only the three states above, plus a risk score that stays inside each state's band (`backend/app/scoring.py`, tested in `test_verdicts.py`).
 2. **Masking before anything else** — cards (Luhn), Emirates ID `784-…`, UAE IBAN `AE..`, phone numbers, e-mails and delivered codes (`backend/app/masking.py`).
 3. **Any request for a card number or an OTP ⇒ `high_suspicion`, even if the link is official.** A message that *delivers* a code and says "don't share it" is **not** suspicious.
 4. **Links are never fetched by the server.** `url_checks.py` contains no network code (hackathon rules + SSRF risk).
@@ -126,6 +132,8 @@ Browser (React + Vite)                         Server (Python + FastAPI)
 | [pytest](https://github.com/pytest-dev/pytest), [httpx](https://github.com/encode/httpx) | tests | MIT, BSD-3-Clause |
 | [React](https://github.com/facebook/react) | UI | MIT |
 | [Vite](https://github.com/vitejs/vite), [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react) | build tooling | MIT |
+| [Pyodide](https://github.com/pyodide/pyodide) (loaded from the jsDelivr CDN, demo build only) | runs the Python rules engine in the browser | MPL-2.0 |
+| [vite-plugin-singlefile](https://github.com/richardtallent/vite-plugin-singlefile) | demo build: one self-contained HTML file | MIT |
 | [tesseract.js](https://github.com/naptha/tesseract.js) (+ Tesseract OCR engine and `ara`/`eng` language data, downloaded by the library at first use) | on-device OCR | Apache-2.0 |
 | Claude API (Anthropic) | optional external LLM service | Anthropic commercial terms |
 | Browser Web Speech API | optional voice input | browser feature |
@@ -148,7 +156,7 @@ cd backend
 python -m venv .venv
 # Windows: .venv\Scripts\activate    macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-pytest                                   # 60 tests
+pytest                                   # 68 tests
 uvicorn app.main:app --port 8000         # API on http://127.0.0.1:8000 (docs at /api/docs)
 ```
 
@@ -169,6 +177,13 @@ npm run dev        # http://localhost:5173 (proxies /api to :8000)
 # or, single-origin: npm run build  → then open http://127.0.0.1:8000 (FastAPI serves frontend/dist)
 ```
 
+### Demo build (one HTML file, no server)
+```bash
+cd frontend
+npm run build:demo   # → frontend/dist-demo/index.html
+```
+The same React UI, with the Python rules engine from `backend/app` running **in the browser** through Pyodide. Message text never leaves the device. This is the build behind the phone link at the top. It doesn't include the optional LLM layer or the authority dashboard (both need the server), and authority-confirmed domains are empty.
+
 ### Optional: LLM layer
 ```bash
 pip install -r requirements-llm.txt   # Windows: if you get a long-path error, clone into a short folder like C:\taakkad
@@ -183,17 +198,23 @@ backend/.venv/Scripts/python eval/run_eval.py        # macOS/Linux: backend/.ven
 ```
 Writes `eval/results.md` and `eval/results.json`.
 
+```bash
+backend/.venv/Scripts/python eval/run_url_eval.py    # link-only: precision / recall on 60 synthetic URLs
+```
+Writes `eval/url_results.md` and `eval/url_results.json`.
+
 ### Repository layout
 ```
 backend/app/     masking, url_checks, text_signals, scoring, llm, report, analyzer,
                  stats (anonymous aggregates, alerts, confirmed domains), main (FastAPI)
 backend/scripts/ seed_demo_stats.py (synthetic demo data for the dashboard)
-backend/tests/   60 pytest tests (masking, link checks, verdict rules, API/privacy, dashboard)
+backend/tests/   68 pytest tests (masking, link checks, verdict rules, API/privacy, dashboard)
 frontend/src/    App.jsx (public app), Admin.jsx (staff dashboard at /admin),
                  i18n.js / adminI18n.js (AR/EN), ocr.js, voice.js, styles.css
 data/            official_domains.json (UNVERIFIED real entries + fictional .test demo entities),
-                 synthetic_messages.jsonl (60 synthetic messages)
-eval/            run_eval.py, results.md, results.json
+                 synthetic_messages.jsonl (60 synthetic messages),
+                 synthetic_urls.jsonl (60 synthetic links: 30 phishing, 30 legitimate)
+eval/            run_eval.py, results.*, run_url_eval.py, url_results.*
 docs/            spec.md (decisions), hackathon-terms.md, deck, mockup
 ```
 
@@ -213,6 +234,18 @@ Run on 23 Nov 2026, **rules only**, 60 synthetic messages (30 scam incl. 12 that
 | `unclear` rate (all messages) | 3/60 (5%) |
 
 **Read this honestly:** the same team wrote the rules and the messages, so this is an **in-sample** check that the rules do what we designed, **not** a measure of real-world accuracy. The one false alarm (`o07`, a courier "delivery PIN — give it to the courier" message) is a real limitation of keyword rules: "give the code" can be normal for delivery PINs. We left it as measured rather than tuning rules to the test set.
+
+### Link-only test (measured)
+Run on 24 Nov 2026, **rules only**, 60 synthetic links checked **on their own**, without any message text: 30 phishing (look-alike spelling, brand in another domain such as `tamm-fines.test` or `uaepass.ae.login-verify.test`, the `@` trick, punycode, raw IP, shorteners, odd structure) and 30 legitimate (official demo domains and subdomains, unrelated sites, and 2 shortened links from real organisations). Full table in [`eval/url_results.md`](eval/url_results.md).
+
+| Counting as "flagged" | Precision | Recall | F1 |
+|---|---|---|---|
+| `high_suspicion` only | 1.00 (22/22) | 0.73 (22/30) | 0.85 |
+| `high_suspicion` or `unclear` | 0.94 (30/32) | 1.00 (30/30) | 0.97 |
+
+**Read this honestly:** these links are in-sample too (same team wrote rules and links). No legitimate link was rated `high_suspicion`. The 8 phishing links that only reach `unclear` are shorteners, raw IPs, punycode and one odd-structure link. From text alone we can't see where they lead, which is why we don't fetch them. The 2 false alarms in the broad count are legitimate shortened links: a real limitation, left as measured.
+
+Building this test found a real bug: in a link like `https://bank.test@evil.test`, the e-mail mask hid the `@` trick and the check crashed. Fixed, with tests (`test_url_checks.py`).
 
 ### User study (designed, not yet run)
 60 participants of different ages, randomly split: (A) uses Ta'akkad, (B) reads a standard awareness tip. Each sees 10 synthetic messages (6 fraudulent, 4 legitimate). Measures: safe-action rate, decision time, false alarms, clarity of explanation (1–5), and card/OTP-request detection. **We will not simulate participants with AI and present them as human results.** If not run in time, it is presented as the next step.

@@ -1,0 +1,670 @@
+{
+  "run": "2026-11-24 06:59 UTC",
+  "mode": "rules only, link only",
+  "strict_high_only": {
+    "tp": 22,
+    "fp": 0,
+    "fn": 8,
+    "precision": 1.0,
+    "recall": 0.733,
+    "f1": 0.846
+  },
+  "broad_high_or_unclear": {
+    "tp": 30,
+    "fp": 2,
+    "fn": 0,
+    "precision": 0.938,
+    "recall": 1.0,
+    "f1": 0.968
+  },
+  "by_trick": {
+    "phishing/lookalike": {
+      "high_suspicion": 8
+    },
+    "phishing/brand_in_host": {
+      "high_suspicion": 12
+    },
+    "phishing/at_sign": {
+      "high_suspicion": 2
+    },
+    "phishing/punycode": {
+      "unclear": 2
+    },
+    "phishing/ip_host": {
+      "unclear": 2
+    },
+    "phishing/shortener": {
+      "unclear": 3
+    },
+    "phishing/odd_structure": {
+      "unclear": 1
+    },
+    "legitimate/official": {
+      "no_visible_indicators": 12
+    },
+    "legitimate/unrelated": {
+      "no_visible_indicators": 16
+    },
+    "legitimate/shortener_legit": {
+      "unclear": 2
+    }
+  },
+  "results": [
+    {
+      "id": "p01",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "https://oasisbnak.test/login",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p02",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "https://0asisbank.test/verify",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p03",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "https://fa1con-express.test/track",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p04",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "https://falcon-expres.test/redelivery",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p05",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "https://najmtelekom.test/bill",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p06",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "https://souqwahaa.test/order/7781",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p07",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "http://arame0x.test/parcel",
+      "status": "high_suspicion",
+      "risk_score": 82,
+      "flags": [
+        "no_https",
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p08",
+      "label": "phishing",
+      "trick": "lookalike",
+      "url": "https://emiratespostt.test/fees",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "lookalike"
+      ]
+    },
+    {
+      "id": "p09",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://tamm-fines.test/pay",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p10",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://uaepass.ae.login-verify.test",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p11",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://tamm.abudhabi.services-portal.test/violations",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p12",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://uaepass-update.example/auth",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p13",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://oasisbank.secure-login.test/",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p14",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://falcon-express-delivery.test/pay",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p15",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://adpolice-fines.example/pay",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p16",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://emiratespost-redelivery.test/form",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p17",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://salik-topup.test/recharge",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p18",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://rta-fines-portal.test/",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p19",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://souqwaha-pay.test/receive",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p20",
+      "label": "phishing",
+      "trick": "brand_in_host",
+      "url": "https://najmtelecom-rewards.test/claim",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "brand_in_host"
+      ]
+    },
+    {
+      "id": "p21",
+      "label": "phishing",
+      "trick": "at_sign",
+      "url": "https://oasisbank.test@login-check.test/session",
+      "status": "high_suspicion",
+      "risk_score": 79,
+      "flags": [
+        "at_sign"
+      ]
+    },
+    {
+      "id": "p22",
+      "label": "phishing",
+      "trick": "at_sign",
+      "url": "http://tamm.abudhabi@203.0.113.7/pay",
+      "status": "high_suspicion",
+      "risk_score": 88,
+      "flags": [
+        "ip_host",
+        "no_https",
+        "at_sign"
+      ]
+    },
+    {
+      "id": "p23",
+      "label": "phishing",
+      "trick": "punycode",
+      "url": "https://xn--oasisbnk-6za.test/",
+      "status": "unclear",
+      "risk_score": 48,
+      "flags": [
+        "punycode",
+        "odd_structure"
+      ]
+    },
+    {
+      "id": "p24",
+      "label": "phishing",
+      "trick": "punycode",
+      "url": "https://xn--tmm-xla.test/fines",
+      "status": "unclear",
+      "risk_score": 48,
+      "flags": [
+        "punycode",
+        "odd_structure"
+      ]
+    },
+    {
+      "id": "p25",
+      "label": "phishing",
+      "trick": "ip_host",
+      "url": "http://192.0.2.44/oasis/verify",
+      "status": "unclear",
+      "risk_score": 39,
+      "flags": [
+        "ip_host",
+        "no_https"
+      ]
+    },
+    {
+      "id": "p26",
+      "label": "phishing",
+      "trick": "ip_host",
+      "url": "http://198.51.100.9/track.php?id=1",
+      "status": "unclear",
+      "risk_score": 39,
+      "flags": [
+        "ip_host",
+        "no_https"
+      ]
+    },
+    {
+      "id": "p27",
+      "label": "phishing",
+      "trick": "shortener",
+      "url": "https://bit.ly/3fakeUAE",
+      "status": "unclear",
+      "risk_score": 30,
+      "flags": [
+        "shortener"
+      ]
+    },
+    {
+      "id": "p28",
+      "label": "phishing",
+      "trick": "shortener",
+      "url": "https://tinyurl.com/parcel-fee-ae",
+      "status": "unclear",
+      "risk_score": 30,
+      "flags": [
+        "shortener"
+      ]
+    },
+    {
+      "id": "p29",
+      "label": "phishing",
+      "trick": "shortener",
+      "url": "https://cutt.ly/oasis-otp",
+      "status": "unclear",
+      "risk_score": 30,
+      "flags": [
+        "shortener"
+      ]
+    },
+    {
+      "id": "p30",
+      "label": "phishing",
+      "trick": "odd_structure",
+      "url": "http://secure-login-verify-account-update.test/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x",
+      "status": "unclear",
+      "risk_score": 30,
+      "flags": [
+        "no_https",
+        "odd_structure"
+      ]
+    },
+    {
+      "id": "l01",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://oasisbank.test/",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l02",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://www.oasisbank.test/cards",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l03",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://online.oasisbank.test/login",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l04",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://falcon-express.test/track?id=FX99812",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l05",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://www.falcon-express.test/",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l06",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://track.falcon-express.test/FX1200",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l07",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://najmtelecom.test/pay-bill",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l08",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://my.najmtelecom.test/",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l09",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://souqwaha.test/deals?ref=sms",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l10",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://www.souqwaha.test/orders/55120",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l11",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "http://oasisbank.test/branches",
+      "status": "no_visible_indicators",
+      "risk_score": 15,
+      "flags": [
+        "no_https"
+      ]
+    },
+    {
+      "id": "l12",
+      "label": "legitimate",
+      "trick": "official",
+      "url": "https://help.souqwaha.test/returns",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l13",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://recipes-daily.test/machboos",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l14",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://abudhabi-weather.example/today",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l15",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://school-events.test/2026/sports-day",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l16",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://family-photos.example/album/42",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l17",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://desert-camping.test/booking",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l18",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://cityrunners.example/club",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l19",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://library.example/catalog?q=arabic+poetry",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l20",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://garden-tips.test/palms",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l21",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://football-fans.example/match/uae-ksa",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l22",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://dubai-marathon.test/register",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l23",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://coffee-corner.test/menu",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l24",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://kids-coding.example/lesson-3",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l25",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "http://old-forum.test/thread/991",
+      "status": "no_visible_indicators",
+      "risk_score": 15,
+      "flags": [
+        "no_https"
+      ]
+    },
+    {
+      "id": "l26",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://news.example/uae/2026/11/23/rain",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l27",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://car-wash-booking.test/slots",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l28",
+      "label": "legitimate",
+      "trick": "unrelated",
+      "url": "https://quran-app.example/surah/1",
+      "status": "no_visible_indicators",
+      "risk_score": 5,
+      "flags": []
+    },
+    {
+      "id": "l29",
+      "label": "legitimate",
+      "trick": "shortener_legit",
+      "url": "https://bit.ly/souqwaha-sale",
+      "status": "unclear",
+      "risk_score": 30,
+      "flags": [
+        "shortener"
+      ]
+    },
+    {
+      "id": "l30",
+      "label": "legitimate",
+      "trick": "shortener_legit",
+      "url": "https://t.co/najmnews",
+      "status": "unclear",
+      "risk_score": 30,
+      "flags": [
+        "shortener"
+      ]
+    }
+  ]
+}

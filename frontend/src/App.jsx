@@ -232,6 +232,18 @@ function Result({ t, result, onReport, onNew }) {
       <section className={`verdict ${result.status}`} role="status">
         <h2><span aria-hidden="true">{st.icon}</span> {st.label}</h2>
         <p>{result.safe_action}</p>
+        {typeof result.risk_score === "number" && (
+          <div className="risk">
+            <div className="risk-head">
+              <span>{t.riskScore}</span>
+              <strong dir="ltr">{result.risk_score}/100</strong>
+            </div>
+            <div className="risk-bar" role="meter" aria-valuemin={0} aria-valuemax={100}
+              aria-valuenow={result.risk_score} aria-label={t.riskScore}>
+              <span style={{ inlineSize: `${result.risk_score}%` }} />
+            </div>
+          </div>
+        )}
       </section>
 
       {result.summary && <p className="summary">{result.summary}</p>}

@@ -37,6 +37,7 @@ def analyse_message(text: str, lang: str = "ar", use_llm: bool = True) -> dict:
                              | {f.code for f in link_findings}),
         "_claims": claim_pairs,
         "status": verdict.status,
+        "risk_score": verdict.risk,  # 0-100, always inside the status band (see scoring.RISK_BANDS)
         "reasons": [{"code": r.code, "text": r.text} for r in verdict.reasons],
         "highlights": verdict.highlights,
         "safe_action": verdict.safe_action,

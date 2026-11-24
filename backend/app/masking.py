@@ -33,7 +33,9 @@ URL_RE = re.compile(
 )
 TRAILING_PUNCT = ".,;:!?)]}»\"'؟،"
 
-EMAIL_RE = re.compile(r"\b[\w.+-]+@[\w-]+(?:\.[\w-]+)+\b")
+# Not right after "://": in "https://bank.test@evil.test" the part before "@" is the
+# @-trick that url_checks must see, not someone's e-mail address.
+EMAIL_RE = re.compile(r"(?<![\w.+-])(?<!://)[\w.+-]+@[\w-]+(?:\.[\w-]+)+\b")
 EMIRATES_ID_RE = re.compile(r"\b784[\s-]?\d{4}[\s-]?\d{7}[\s-]?\d\b")
 IBAN_RE = re.compile(r"\bAE\d{2}(?:[\s-]?\d){19}\b", re.IGNORECASE)
 CARD_CANDIDATE_RE = re.compile(r"\b\d(?:[\s-]?\d){12,18}\b")

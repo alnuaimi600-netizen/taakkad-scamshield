@@ -6,6 +6,7 @@ export const STRINGS = {
     chooseLang: "اختر اللغة",
     privacyLink: "الخصوصية",
     themeDark: "الوضع الليلي",
+    riskScore: "درجة الخطورة",
     themeLight: "الوضع النهاري",
     privacyTitle: "قبل ما نبدأ: خصوصيتك",
     privacyPoints: [
@@ -84,6 +85,7 @@ export const STRINGS = {
     chooseLang: "Choose your language",
     privacyLink: "Privacy",
     themeDark: "Dark mode",
+    riskScore: "Risk score",
     themeLight: "Light mode",
     privacyTitle: "Before we start: your privacy",
     privacyPoints: [
