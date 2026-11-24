@@ -6,7 +6,7 @@
 
 **Try it on your phone:** <https://claude.ai/artifact/FCk19F8GzLCWcma9wYGoxw> (in-browser demo build; see *Demo build* below for what it includes).
 
-**Demo video (58 s, Arabic voice-over):** [`docs/taakkad-demo.mp4`](docs/taakkad-demo.mp4), a screen recording of the in-browser demo build with synthetic messages and links. The voice is synthetic (see *Video production* under the libraries table).
+**Demo video (56 s, Emirati Arabic voice-over):** [`docs/taakkad-demo.mp4`](docs/taakkad-demo.mp4), a screen recording of the in-browser demo build with synthetic messages and links. The voice is synthetic (see *Video production* under the libraries table).
 
 **Presentation:** [`docs/taakkad-team-deck.pptx`](docs/taakkad-team-deck.pptx). It has 12 slides on the problem, a working demo, the technical architecture, why we chose these models, the privacy mechanism, the link with the security authority, measured results, and next steps. Speaker notes are on every slide.
 
@@ -142,7 +142,7 @@ Browser (React + Vite)                         Server (Python + FastAPI)
 
 All code in this repository is original work by the team.
 
-**Video production (not part of the app).** The demo video was recorded from the real app with Playwright and assembled with [FFmpeg](https://ffmpeg.org) (LGPL/GPL). The Arabic voice-over is synthetic, generated offline with [Piper](https://github.com/rhasspy/piper) (`piper-tts`, GPL-3.0) using the `ar_JO-kareem-medium` voice from the Piper voice collection, downloaded from the [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) model releases (Apache-2.0). The voice's model card points to its training-data repository for licence terms, which we could not reach, so its data licence is unconfirmed. We checked the narration's intelligibility by transcribing it with OpenAI Whisper `small` (MIT, via sherpa-onnx).
+**Video production (not part of the app).** The demo video was recorded from the real app with Playwright and assembled with [FFmpeg](https://ffmpeg.org) (LGPL/GPL). The voice-over is synthetic: Microsoft's Emirati Arabic neural voice `ar-AE-HamdanNeural`, generated through [edge-tts](https://github.com/rany2/edge-tts) (LGPL-3.0), which calls Microsoft's online speech service; only the narration script was sent to it. We checked the narration's intelligibility by transcribing it with OpenAI Whisper `small` (MIT, run offline via [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), Apache-2.0).
 
 **Organisers' logos and colours.** `frontend/public/partners/` holds the Abu Dhabi Police and 42 Abu Dhabi logos. They are shown only as hackathon credit (start screen and footer), next to the line "This is not an official Abu Dhabi Police app". The logos belong to their owners. The current files were cropped from the event material; we'll replace them with official, clearer copies from the organisers. The UI palette takes its cues from the logos: charcoal from 42 for the header and main buttons, police red `#B40C24` used **only** for the high-suspicion state and the header stripe (so red always means "warning"), and the falcon's bronze for focus, highlights and links.
 
